@@ -1,0 +1,24 @@
+.registration, .login{
+    display: inline-block;
+    width: 500px;
+    border: 1px solid black;
+    vertical-align: top;
+    padding: 20px;
+}
+label{
+    display: block;
+    padding: 5px;
+}
+form{
+    text-align: right!important;
+    width: 350px;
+}
+.login{
+    width: 400px;
+}
+h1{
+    padding: 2px 25px;
+}
+.green{
+    color: green;
+}
