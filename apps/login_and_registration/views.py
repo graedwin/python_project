@@ -37,7 +37,6 @@ def login(request):
         # False and we have errors to show
         for error in result[1]: # my errors list ['first name required', 'last name required']
             messages.add_message(request, messages.INFO, error)
-
         return redirect('/')
 def logout(request):
     request.session.clear()
