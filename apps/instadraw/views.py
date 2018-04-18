@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect, HttpResponse
 from django.contrib import messages
 import json
 from ..login_and_registration.models import *
+from django.contrib import messages
 from models import *
 
 

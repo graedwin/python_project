@@ -91,6 +91,7 @@ var canvas, ctx, flag = false,prevX = 0,currX = 0,prevY = 0,currY = 0,dot_flag =
                 }
             }
             $(document).ready(function(){
+
                 $('.save').on("click",function(){
                     document.getElementById('image').value = canvas.toDataURL('image/png');
                     console.log(canvas.toDataURL('image/png'))  
