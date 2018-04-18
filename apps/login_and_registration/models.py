@@ -11,7 +11,6 @@ EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 # Create your models here.
 class UserManager(models.Manager):
     def validate_reg(self, postData):
-        print postData 
         errors = []
         first = postData['first_name']
         last = postData['last_name']

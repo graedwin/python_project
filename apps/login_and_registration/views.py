@@ -9,7 +9,7 @@ def index(request):
     if not 'user_id' in request.session:
         return render(request, 'login_and_registration_app/index.html')
     else:
-     return redirect('/instadraw')
+        return redirect('/instadraw')
 
 def register(request):
     print request.POST
@@ -41,3 +41,7 @@ def login(request):
 def logout(request):
     request.session.clear()
     return redirect('/welcome')
+def newuser(request):
+    return render(request, 'login_and_registration_app/register.html')
+def existinguser(request):
+    return render(request, 'login_and_registration_app/index.html')

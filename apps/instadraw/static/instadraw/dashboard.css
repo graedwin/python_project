@@ -1,0 +1,22 @@
+
+.post {
+    display: inline-block;
+    vertical-align: top;
+    width: 18%;
+    /* height: 300px; */
+    padding: 10px;
+    border: 2px solid grey;
+}
+
+.post img {
+    width: 200px;
+    height: 170px;
+}
+
+.post p {
+    height: 90px;
+}
+
+.post a {
+
+}
