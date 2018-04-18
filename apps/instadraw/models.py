@@ -10,9 +10,28 @@ class Post(models.Model):
     created_at=models.DateTimeField(auto_now_add=True,null=True)
     updated_at=models.DateTimeField(auto_now=True)
 
+    def __str__ (self):
+        return self.description
+
+class CommentManager (models.Manager):
+    def commentValidator (self, postData):
+        if postData['content']<1:
+            return (False, 'The comment must be at least two characters')
+        else:
+            newComment = self.create (
+                content=postData['content'],
+                commented_by=postData['user'],
+                post=postData['post']
+            )
+            return (True, newComment)
+
+
+
 class Comment(models.Model):
     content=models.TextField()
     commented_by=models.ForeignKey(User,related_name='comments')
     post=models.ForeignKey(Post,related_name='comments')
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
+
+    objects = CommentManager()

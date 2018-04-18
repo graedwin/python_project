@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'instadraw/skeleton.css' %}">
+        <link rel="stylesheet" href="{% static 'instadraw/normalize.css' %}">
+        <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script> 
+        <script src="{% static 'instadraw/show.js' %}"></script>
+        <title>Show Post</title>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="header">
+                {{request.session.user_name}} 
+                <form action="/instadraw/search" id='search_box' method="post">
+                    {% csrf_token %}
+                    <input type="text" name="search">
+                </form>
+                <a href="/instadraw">Home </a> | <a href="/welcome/logout">Logout</a>
+            </div>
+            <div id="all_posts">
+            <!-- {% if search_results %} -->
+                {% for result in search_results %}
+                <div class="post">
+                    <a href="/instadraw/show/{{result.id}}">
+                        <img src="{{result.pic}}" alt="an image">
+                        <p> {{ result.description }} </p>
+                    </a>
+                </div>
+                {% endfor %}
+            <!-- {% else %} -->
+                <h1>NO RESULTS FOUND!!!!!!!!</h1>
+            <!-- {% endif %} -->
+            </div>
+        </div>
+    </body>
+</html>
