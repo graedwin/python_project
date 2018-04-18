@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Instadraw</title>
     {%load static%}
     <link rel="stylesheet" href="{%static 'login_and_registration_app/skeleton.css'%}">
     <link rel="stylesheet" href="{%static 'instadraw/styles.css'%}">
     <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script> 
     <script type="text/javascript" src="{%static 'instadraw/scripts.js'%}"></script> 
-    <title>Document</title>
+    <link rel="icon" href="{%static 'instadraw/Instadraw-logo.png'%}">
+    <script type="text/javascript" src='https://code.jquery.com/ui/1.12.0/jquery-ui.js'></script> 
 </head>
-<header>
-        Welcome
+<nav>
+        <a href="/instadraw"><img class='logo' src="{%static 'instadraw/Instadraw-logo.png'%}" alt="Logo"></a>
         <a href="/instadraw/logout">Logout</a>
-</header>
+</nav>
 <body>
     <a href="instadraw/create_post" class="create_post">Create a new post</a>
     <div class="posts">

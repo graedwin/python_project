@@ -6,15 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Create a new post</title>
     {%load static%}
+    <link rel="icon" href="{%static 'instadraw/Instadraw-logo.png'%}">
     <link rel="stylesheet" href="{%static 'login_and_registration_app/skeleton.css'%}">
-    <link rel="stylesheet" href="{%static 'instadraw/styles.css'%}">
     <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script> 
+    <link rel="stylesheet" href="{%static 'instadraw/styles.css'%}">
     <script type="text/javascript" src="{%static 'instadraw/scripts.js'%}"></script> 
 </head>
-<header>
-        Welcome
-        <a href="/instadraw/logout">Logout</a>
-    </header>
+<nav>
+    <a href="/instadraw"><img class='logo' src="{%static 'instadraw/Instadraw-logo.png'%}" alt="Logo"></a>
+    <a href="/instadraw/logout">Logout</a>
+</nav>
 <body onload="init()">
     <div class="wrapper_create_post">
         <div class="container_form">
@@ -22,7 +23,7 @@
             <form action="/instadraw/create_post/save" name="save" method="post" >
                 {%csrf_token%}
                 <input type="hidden" alt="Submit" id="image" name="image">
-                <textarea name="description" id="description" cols="70" rows="15"></textarea>
+                <textarea name="description" id="description" cols="70" rows="15" placeholder="Optional"></textarea>
             </form>
         </div>
         <div class="menu">
@@ -41,6 +42,9 @@
                 <Button value="Clear" id="clr" onclick="erase()">Clear</Button> 
                 <button value="Save" class="save">Save</button> 
             </div>
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
     </div>
 </body>
 </html>

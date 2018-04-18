@@ -5,6 +5,9 @@
     vertical-align: top;
     padding: 20px;
 }
+input[type='text'],input[type='password']{
+    margin: 8px;
+}
 label{
     display: block;
     padding: 5px;
@@ -21,4 +24,13 @@ h1{
 }
 .green{
     color: green;
+}
+.loginSection{
+    text-align: center;
+    margin: 10% 35%;
+    width: 30%
+}
+.loginSection div{
+    text-align: center;
+    width: 500px;
 }
