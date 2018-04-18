@@ -3,4 +3,36 @@ canvas{
 }
 .menu{
     display: inline-block;
+    vertical-align: top;
+}
+.color{
+    width: 90px;
+    height: 90px;
+    display: inline-block;
+    border:1px solid;
+}
+.menu{
+    width:15%;
+    margin: 1% 2%;
+}
+.imagePost{
+    width: 100%;
+    border: 1px solid black;
+    display: inline-block;
+    margin: 0px;
+}
+.create_post{
+    display: block;
+}
+.wrapper_create_post{
+    text-align: center;
+}
+.container_form{
+    display: inline-block;
+}
+.postContainer{
+    display: inline-block;
+    width: 30%; 
+    padding: 5px;  
+    margin: 5px;  
 }

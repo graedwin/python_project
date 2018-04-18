@@ -31,8 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'apps.login_and_registration',
     'apps.instadraw',
+    'apps.login_and_registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

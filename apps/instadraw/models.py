@@ -3,10 +3,11 @@ from django.db import models
 from ..login_and_registration.models import *
 
 class Post(models.Model):
+    description=models.TextField(default='')
     pic=models.ImageField()
-    posted_by=models.ForeignKey(User,related_name='posts')
+    posted_by=models.ForeignKey(User,related_name='posts',null=True)
     liked_by=models.ManyToManyField(User,related_name='likes')
-    created_at=models.DateTimeField(auto_now_add=True)
+    created_at=models.DateTimeField(auto_now_add=True,null=True)
     updated_at=models.DateTimeField(auto_now=True)
 
 class Comment(models.Model):
