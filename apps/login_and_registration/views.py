@@ -13,7 +13,7 @@ def index(request):
 
 def register(request):
     print request.POST
-    result = User.objects.validate_reg(request.POST) # (False, [' ', ' '])
+    result = User.objects.validate_reg(request.POST, 'register') # (False, [' ', ' '])
     if result[0]:
         # True and we have a new user
         request.session['user_id'] = result[1].id
@@ -46,3 +46,18 @@ def newuser(request):
     return render(request, 'login_and_registration_app/register.html')
 def existinguser(request):
     return render(request, 'login_and_registration_app/index.html')
+
+def edit_user_form (request):
+    user = User.objects.get(id=request.session['user_id'])
+    return render (request, 'login_and_registration_app/edit_user_form.html', { 'user': user})
+
+def edit_user (request):
+    
+    result = User.objects.validate_reg(request.POST, request.session['user_id'])
+
+    if not result[0]:
+        for error in result[1]:
+            messages.error (request, error)
+        return redirect ('/welcome/edit_user_form')
+    return redirect ('/instadraw/profile')
+

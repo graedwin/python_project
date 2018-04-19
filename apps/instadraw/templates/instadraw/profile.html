@@ -4,11 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"> {%load static%}
-    <link rel="stylesheet" href="{%static 'login_and_registration_app/skeleton.css'%}">
-    <link rel="stylesheet" href="{%static 'instadraw/styles.css'%}">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'instadraw/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'instadraw/css/bootstrap-reboot.min.css' %}">
     <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
-    <script type="text/javascript" src="{%static 'instadraw/scripts.js'%}"></script>
+    <script src="{% static 'instadraw/bootstrap.min.js' %}"></script>
+    <script src="{% static 'instadraw/holder.min.js' %}"></script>
+    <script src="{% static 'instadraw/jquery-slim.min.js' %}"></script>
+    <script src="{% static 'instadraw/popper.min.js' %}"></script>
+    <script src="{% static 'instadraw/js/show.js' %}"></script>
     <title>Profile</title>
 </head>
 
@@ -19,7 +24,6 @@
         <img src="{{post.pic}}" alt="Post" class="imagePost">
         <p>{{post.description}}</p>
     </div> {%endfor%}
-    <a href="/instadraw/create_post">Go back</a>
 </body>
 
 </html>
