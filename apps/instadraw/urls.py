@@ -10,5 +10,5 @@ urlpatterns = [
     url(r'^add_comment/(?P<post_id>\d+)$', views.add_comment),
     url(r'^like/(?P<post_id>\d+)$', views.like),
     url(r'^search$', views.search),
-
+    url(r'^delete_comment/(?P<post_id>\d+)/(?P<comment_id>\d+)$', views.delete_comment),
 ]

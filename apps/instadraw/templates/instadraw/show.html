@@ -5,11 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         {% load static %}
-        <link rel="stylesheet" href="{% static 'instadraw/skeleton.css' %}">
-        <link rel="stylesheet" href="{% static 'instadraw/normalize.css' %}">
+        <link rel="stylesheet" href="{% static 'instadraw/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'instadraw/css/bootstrap-reboot.min.css' %}">
         <link rel="stylesheet" href="{% static 'instadraw/css/show.css' %}">
-        <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script> 
-        <script src="{% static 'instadraw/show.js' %}"></script>
+        <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
+        <script src="{% static 'instadraw/bootstrap.min.js' %}"></script>
+        <script src="{% static 'instadraw/holder.min.js' %}"></script>
+        <script src="{% static 'instadraw/jquery-slim.min.js' %}"></script>
+        <script src="{% static 'instadraw/popper.min.js' %}"></script>
+        <script src="{% static 'instadraw/js/show.js' %}"></script>
         <title>Show Post</title>
     </head>
     <body>
@@ -24,38 +28,54 @@
             </div>
             <div id="left-pane">
                 <div id="post">
-                    <img src="{{ pic }}" alt="an image">
-                    <div id="icons">
-                        {% load static %}
-                        <a class ='likes' id={{post_id}} >{{ likes_total }}</a>
-                        {% if comments %}
-                            <a href="">{{ comments_total }}</a>
+                    <h1>Art</h1>
+                    <hr>
+                    <p class="font-weight-bold">Created by: {{ posted_by.first_name }} on {{ created_at }}</p>
+                    <img src="{{ pic }}" alt="an image" class="img-fluid">
+                    <div id="lef-pane-misc">
+                        <div class="optional">
+                        {% if posted_by.id == request.session.user_id %}
+                            <p class="font-italic options"><a href="">Delete Post </a> <a href="" class="ml-3"> Edit description</a></p>
                         {% endif %}
+                        </div>
+                        <div id="icons">
+                                {% load static %}
+                                <a class ='likes' id={{post_id}} >{{ likes_total }}</a>
+                                <a>{{ comments_total }}</a>
+                        </div>
                     </div>
                     <p>{{ description }}</p>
-                    <p>Created by: {{ posted_by }} on {{ created_at }}</p>
+                    
                 </div>
                 <div id="add_comment">
                     {% for message in messages %}
-                    <p>message</p>
+                        <p>{{ message }}</p>
                     {% endfor %}
-                    <form action="/instadraw/add_comment/{{ post_id }}" method="post">
+                    <form action="/instadraw/add_comment/{{ post_id }}" method="post" class="form-inline">
                         {% csrf_token %}
-                        <textarea name="content" cols="50" rows="3"></textarea>
-                        <input type="submit" value="Comment">
+                        <textarea name="content" cols="50" rows="3" class="rounded"></textarea>
+                        <input type="submit" value="Comment" class="btn btn-primary m-2 d-block">
                     </form>
                 </div>
             </div>
             <div id="comments">
                 {% if comments %}
+                    <h1>Comments</h1>
+                    <hr>
                     {% for comment in comments %}
                         <div id="comment">
-                            <p><span> {{ comment.commented_by.first_name }}</span> {{ comment.created_at }}</p>
                             <p>{{ comment.content }}</p>
+                            <div id="comment-footer">
+                                <p id='comment-text' class="font-italic ml-4" style="font-size: 14px;">By: {{ comment.commented_by.first_name }} on {{ comment.created_at }}</p>
+                                <div class="optional ml-sm-3">
+                                    {% if posted_by.id == request.session.user_id %}
+                                        <p class="options font-italic ml-5"><a href="/instadraw/delete_comment/{{ post_id }}/{{ comment.id }}">Delete Comment </a> <a href="" class="ml-3"> Edit comment</a></p>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
                     {% endfor %}
                 {% endif %}
             </div>
-        </div>
     </body>
 </html>

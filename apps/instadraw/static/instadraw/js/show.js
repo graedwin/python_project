@@ -1,8 +1,5 @@
 $(document).ready(function () {
     $('.likes').on ('click', function () {
-        var likes_amout = $('.likes').text();
-
-        console.log ($(this).attr('id'));
 
         $.ajax ({
             type: 'GET',
@@ -17,4 +14,5 @@ $(document).ready(function () {
         //$(this).text(likes_amount+1);
         return false;
     });
+
 });

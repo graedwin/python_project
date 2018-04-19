@@ -1,14 +1,18 @@
 
 #wrapper {
-    width: 1200px;
+    width: 100%;
+    max-height: 100vh;
     vertical-align: top;
 }
 #left-pane {
+    width: 35%;
+    margin-right: 5%;
     vertical-align: top;
     display: inline-block;
-    width: 700px;
 }
 #icons {
+    width: 50%;
+    display: inline-block;
     text-align: right;
 }
 #icons a {
@@ -23,8 +27,22 @@
 #icons a:last-child{
     background-image:url(../img/comments.png);
 }
-#comments{
+.optional {
     display: inline-block;
-    width: 400px;
+}
+#comment-text {
+    
+}
+#comments{
+    width: 45%;
+    margin-right: auto;
+    height: 40em;
+    display: inline-block;
+}
+#comment-footer p {
+    display: inline-block;
+}
+.options {
+    font-size: 10px;
 }
 
