@@ -91,10 +91,10 @@ var canvas, ctx, flag = false,prevX = 0,currX = 0,prevY = 0,currY = 0,dot_flag =
 
                 $('.save').on("click",function(){
                     document.getElementById('image').value = canvas.toDataURL('image/png');
-                    console.log(canvas.toDataURL('image/png'))  
                     document.forms["save"].submit();
                 })
                 $('.edit_description').on("click",function(){
+                    console.log('Here');
                     $(".description"+$(this).attr('id')).hide();
                     $(".form"+$(this).attr('id')).show();
                     $("#"+$(this).attr('id')).hide();

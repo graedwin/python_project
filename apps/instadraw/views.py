@@ -9,8 +9,21 @@ from models import *
 def index(request):
     return render(request,'instadraw/index.html',{'posts':Post.objects.all()})
 
+def logout(request):
+    request.session.clear()
+    return redirect('/welcome')
+
 def new_post(request):
     return render(request,'instadraw/create_post.html')
+
+def profile(request):
+    id=request.session['user_id']
+    context = {
+        "my_post" : User.objects.get(id=id).posts.all(),
+        "user" : User.objects.get(id=id).username,
+    }
+    return render(request,'instadraw/profile.html',context)
+   
 def save(request):
     Post.objects.create(pic=request.POST['image'],posted_by=User.objects.get(id=request.session['user_id']),description=request.POST['description'])
     return redirect('/instadraw')
@@ -21,20 +34,24 @@ def show (request, post_id):
         'post_id': post.id,
         'description': post.description,
         'pic': post.pic,
+        'posted_by': post.posted_by,
+        'created_at': post.created_at,
         'likes_total': post.liked_by.count(),
         'comments_total': post.comments.count(),
-        'comments': post.comments.all()
+        'comments': post.comments.all().order_by('-created_at')
     }
-
     return render (request, 'instadraw/show.html', context)
     
 def like(request, post_id):
+    print '-----> POST_ID: ', post_id
 
     user = User.objects.get(id=request.session['user_id'])
     post = Post.objects.get(id=post_id)
     
     if user not in post.liked_by.all():
         post.liked_by.add(user)
+    else:
+        post.liked_by.remove(user)
     dictionary = {
         'response': post.liked_by.count()
     }
@@ -53,10 +70,13 @@ def add_comment (request, post_id):
     new_comment = Comment.objects.commentValidator (postData)
 
     if not new_comment[0]:
-        messages.error(new_comment)
+        messages.error(request, new_comment[1])
 
     return redirect ('/instadraw/show/'+str(post_id))
 
+def delete_comment (request, post_id, comment_id):
+    Comment.objects.get(id=comment_id).delete()
+    return redirect ('/instadraw/show/'+str(post_id))
 
 
 def search (request):
