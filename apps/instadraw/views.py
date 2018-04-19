@@ -9,13 +9,10 @@ from models import *
 def index(request):
     return render(request,'instadraw/index.html',{'posts':Post.objects.all()})
 
-<<<<<<< HEAD
-=======
 def logout(request):
     request.session.clear()
     return redirect('/welcome')
 
->>>>>>> changes
 def new_post(request):
     return render(request,'instadraw/create_post.html')
 
