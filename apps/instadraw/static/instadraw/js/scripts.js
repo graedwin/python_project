@@ -12,9 +12,6 @@ var canvas, ctx, flag = false,prevX = 0,currX = 0,prevY = 0,currY = 0,dot_flag =
                 canvas.addEventListener("mouseup", function (e) {findxy('up', e)}, false);
                 canvas.addEventListener("mouseout", function (e) {findxy('out', e)}, false);
             }
-            function resize(){    
-                $("#can").outerHeight($(window).height()-$("#can").offset().top- Math.abs($("#can").outerHeight(true) - $("#can").outerHeight()));
-              }
             
             function color(obj) {
                 switch (obj.id) {
@@ -96,5 +93,11 @@ var canvas, ctx, flag = false,prevX = 0,currX = 0,prevY = 0,currY = 0,dot_flag =
                     document.getElementById('image').value = canvas.toDataURL('image/png');
                     console.log(canvas.toDataURL('image/png'))  
                     document.forms["save"].submit();
+                })
+                $('.edit_description').on("click",function(){
+                    $(".description"+$(this).attr('id')).hide();
+                    $(".form"+$(this).attr('id')).show();
+                    $("#"+$(this).attr('id')).hide();
+                    return false;
                 })
             });

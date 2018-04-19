@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'instadraw/skeleton.css' %}">
+        <link rel="stylesheet" href="{% static 'instadraw/normalize.css' %}">
+        <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script> 
+        <script src="{% static 'instadraw/show.js' %}"></script>
+        <title>Show Post</title>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="header">
+                    {{request.session.user_name}} 
+                    <form action="/instadraw/search" id='search_box' method="post">
+                        {% csrf_token %}
+                        <input type="text" name="search">
+                    </form>
+                    <a href="/instadraw">Home </a> | <a href="/welcome/logout">Logout</a>
+            </div>
+            <div id="post">
+                <img src="{{ pic }}" alt="an image">
+                <p>{{ description }}</p>
+
+                <a class ='likes' id={{post_id}}>{{ likes_total }}</a>
+                {% if comments %}
+                    <a href="">Comments: {{ comments_total }}</a>
+                {% endif %}
+            </div>
+            <form action="'/instadraw/like/{{post_id}}" style="display: none" name="likes" method='post'>
+                <input type="hidden" name='postid' value="{{post_id}}">
+            </form>
+            <div id="add_comment">
+                {% for message in messages %}
+                    <p>message</p>
+                {% endfor %}
+                <form action="/instadraw/add_comment/{{ post_id }}" method="post">
+                    {% csrf_token %}
+                    <textarea name="content" cols="50" rows="3"></textarea>
+                    <input type="submit" value="Comment">
+                </form>
+            </div>
+            <div id="comments">
+                {% if comments %}
+                    {% for comment in comments %}
+                        <div id="comment">
+                            <p><span> {{ comment.commented_by.first_name }}</span> {{ comment.created_at }}</p>
+                            <p>{{ comment.content }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </body>
+</html>
