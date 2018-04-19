@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {%load static%}
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> {%load static%}
     <link rel="stylesheet" href="{%static 'login_and_registration_app/skeleton.css'%}">
     <link rel="stylesheet" href="{%static 'login_and_registration_app/styles.css'%}">
     <title>Login</title>
 </head>
+
 <body>
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
     </ul>
     {% endif %}
     <section class="loginSection">
@@ -30,4 +31,5 @@
         </div>
     </section>
 </body>
+
 </html>
