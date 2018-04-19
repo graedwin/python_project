@@ -7,6 +7,7 @@
         {% load static %}
         <link rel="stylesheet" href="{% static 'instadraw/skeleton.css' %}">
         <link rel="stylesheet" href="{% static 'instadraw/normalize.css' %}">
+        <link rel="stylesheet" href="{% static 'instadraw/css/show.css' %}">
         <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script> 
         <script src="{% static 'instadraw/show.js' %}"></script>
         <title>Show Post</title>
@@ -21,27 +22,29 @@
                     </form>
                     <a href="/instadraw">Home </a> | <a href="/welcome/logout">Logout</a>
             </div>
-            <div id="post">
-                <img src="{{ pic }}" alt="an image">
-                <p>{{ description }}</p>
-
-                <a class ='likes' id={{post_id}}>{{ likes_total }}</a>
-                {% if comments %}
-                    <a href="">Comments: {{ comments_total }}</a>
-                {% endif %}
-            </div>
-            <form action="'/instadraw/like/{{post_id}}" style="display: none" name="likes" method='post'>
-                <input type="hidden" name='postid' value="{{post_id}}">
-            </form>
-            <div id="add_comment">
-                {% for message in messages %}
+            <div id="left-pane">
+                <div id="post">
+                    <img src="{{ pic }}" alt="an image">
+                    <div id="icons">
+                        {% load static %}
+                        <a class ='likes' id={{post_id}} >{{ likes_total }}</a>
+                        {% if comments %}
+                            <a href="">{{ comments_total }}</a>
+                        {% endif %}
+                    </div>
+                    <p>{{ description }}</p>
+                    <p>Created by: {{ posted_by }} on {{ created_at }}</p>
+                </div>
+                <div id="add_comment">
+                    {% for message in messages %}
                     <p>message</p>
-                {% endfor %}
-                <form action="/instadraw/add_comment/{{ post_id }}" method="post">
-                    {% csrf_token %}
-                    <textarea name="content" cols="50" rows="3"></textarea>
-                    <input type="submit" value="Comment">
-                </form>
+                    {% endfor %}
+                    <form action="/instadraw/add_comment/{{ post_id }}" method="post">
+                        {% csrf_token %}
+                        <textarea name="content" cols="50" rows="3"></textarea>
+                        <input type="submit" value="Comment">
+                    </form>
+                </div>
             </div>
             <div id="comments">
                 {% if comments %}

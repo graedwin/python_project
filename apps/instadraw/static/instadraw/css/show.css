@@ -1,0 +1,30 @@
+
+#wrapper {
+    width: 1200px;
+    vertical-align: top;
+}
+#left-pane {
+    vertical-align: top;
+    display: inline-block;
+    width: 700px;
+}
+#icons {
+    text-align: right;
+}
+#icons a {
+    margin-left: 20px;
+    padding-left: 20px;
+    background-size: 16px;
+    background-repeat: no-repeat;
+}
+#icons a:first-child{
+    background-image:url(../img/like.png);
+}
+#icons a:last-child{
+    background-image:url(../img/comments.png);
+}
+#comments{
+    display: inline-block;
+    width: 400px;
+}
+

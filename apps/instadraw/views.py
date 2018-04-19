@@ -34,6 +34,8 @@ def show (request, post_id):
         'post_id': post.id,
         'description': post.description,
         'pic': post.pic,
+        'posted_by': post.posted_by.first_name,
+        'created_at': post.created_at,
         'likes_total': post.liked_by.count(),
         'comments_total': post.comments.count(),
         'comments': post.comments.all()
@@ -49,7 +51,8 @@ def like(request, post_id):
     
     if user not in post.liked_by.all():
         post.liked_by.add(user)
-    print 'GOT ALL THE WAY HERE/////////'
+    else:
+        post.liked_by.remove(user)
     dictionary = {
         'response': post.liked_by.count()
     }
