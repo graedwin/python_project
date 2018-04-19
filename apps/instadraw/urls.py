@@ -3,6 +3,11 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index),
+<<<<<<< HEAD
+=======
+    url(r'logout$', views.logout),
+    url(r'profile', views.profile),
+>>>>>>> changes
     url(r'create_post$', views.new_post),
     url(r'create_post/save$', views.save),
     url(r'^show/(?P<post_id>\d+)$', views.show),
