@@ -15,6 +15,7 @@ class UserManager(models.Manager):
         errors = []
         first = postData['first_name']
         last = postData['last_name']
+        username = postData['username']
         email = postData['email']
         password = postData['password']
         c_password = postData['c_password']
@@ -31,6 +32,10 @@ class UserManager(models.Manager):
             errors.append('last Name must be at least 2 characters')
         elif not last.isalpha():
             errors.append('last Name cannot contain numbers')
+        if len(username) is 0:
+            errors.append('Username is required')
+        elif len(username) < 4:
+            errors.append('Username must be at least 4 characters')
         if len(email) is 0:
             errors.append('Email is required')
         elif not EMAIL_REGEX.match(email):
@@ -57,6 +62,7 @@ class UserManager(models.Manager):
                 new_user = self.create(
                     first_name = first,
                     last_name = last,
+                    username = username,
                     email = email,
                     password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
                 )
@@ -97,6 +103,7 @@ class UserManager(models.Manager):
 class User(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    username = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
     password = models.CharField(max_length=255)
     username=models.CharField(max_length=255,null=True)
