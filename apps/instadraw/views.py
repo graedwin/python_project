@@ -87,4 +87,14 @@ def search (request):
     return render (request, 'instadraw/search_results.html', { 'search_results': search_results} )
     
 
+
+#will only show up if session['user_id'] matches the post's uploaded_by
+def edit_description (request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.description=request.POST['description']
+    post.save() 
+    return redirect('/instadraw')
+def delete_post (request, post_id):
+    Post.objects.get(id=post_id).delete()
+    return redirect('/instadraw')
     

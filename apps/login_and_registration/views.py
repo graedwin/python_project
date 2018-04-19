@@ -24,7 +24,7 @@ def register(request):
         for error in result[1]: # my errors list ['first name required', 'last name required']
             messages.add_message(request, messages.INFO, error)
 
-        return redirect('/welcome')
+        return redirect('/welcome/newUser')
 
 def login(request):
     result = User.objects.validate_log(request.POST)

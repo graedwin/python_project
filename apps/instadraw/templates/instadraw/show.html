@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="{% static 'instadraw/css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static 'instadraw/css/bootstrap-reboot.min.css' %}">
         <link rel="stylesheet" href="{% static 'instadraw/css/show.css' %}">
+        <link rel="stylesheet" href="{%static 'instadraw/css/modify.css'%}">
         <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
         <script src="{% static 'instadraw/bootstrap.min.js' %}"></script>
         <script src="{% static 'instadraw/holder.min.js' %}"></script>
@@ -17,15 +18,17 @@
         <title>Show Post</title>
     </head>
     <body>
+        <nav id="header" class="navbar navbar-dark bg-primary" style="margin-bottom:20px;">
+            <a href="/instadraw" class="navbar-brand" id='instadraw'>Instadraw </a>
+            <a href="/welcome/logout">Logout</a>
+            <form action="/instadraw/search" id='search_box' method="post">
+                {% csrf_token %}
+                <input type="text" name="search" class="form-control mr-sm-2" placeholder="Search">
+            </form>
+            <a href="/instadraw/create_post"><button class="btn btn-outline-light">Create post</button></a>
+            <a href="" class="navbar-brand">Hello, {{request.session.user_name}} </a>
+        </nav>
         <div id="wrapper">
-            <div id="header">
-                    {{request.session.user_name}} 
-                    <form action="/instadraw/search" id='search_box' method="post">
-                        {% csrf_token %}
-                        <input type="text" name="search">
-                    </form>
-                    <a href="/instadraw">Home </a> | <a href="/welcome/logout">Logout</a>
-            </div>
             <div id="left-pane">
                 <div id="post">
                     <h1>Art</h1>
@@ -78,4 +81,10 @@
                 {% endif %}
             </div>
     </body>
+<<<<<<< HEAD
+    <footer>
+            Instadraw© 
+    </footer>
+=======
+>>>>>>> a4c64a5926bae04cbc1f6abb61509e3907ae9211
 </html>

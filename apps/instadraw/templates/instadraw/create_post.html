@@ -7,44 +7,58 @@
     <title>Create a new post</title>
     {%load static%}
     <link rel="icon" href="{%static 'instadraw/Instadraw-logo.png'%}">
-    <link rel="stylesheet" href="{%static 'login_and_registration_app/skeleton.css'%}">
+    <link rel="stylesheet" href="{%static 'instadraw/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'instadraw/css/bootstrap-reboot.css'%}">
+    <link rel="stylesheet" href="{%static 'instadraw/css/modify.css'%}">
     <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script> 
-    <link rel="stylesheet" href="{%static 'instadraw/styles.css'%}">
-    <script type="text/javascript" src="{%static 'instadraw/scripts.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'instadraw/js/scripts.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'instadraw/js/bootstrap.min.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'instadraw/js/holder.min.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'instadraw/js/jquery-slim.min.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'instadraw/js/popper.min.js'%}"></script> 
 </head>
-<nav>
-    <a href="/instadraw"><img class='logo' src="{%static 'instadraw/Instadraw-logo.png'%}" alt="Logo"></a>
-    <a href="/welcome/logout">Logout</a>
-</nav>
 <body onload="init()">
-    <div class="wrapper_create_post">
-        <div class="container_form">
+    <nav id="header" class="navbar navbar-dark bg-primary" style="margin-bottom:20px;">
+            <a href="/instadraw" class="navbar-brand" id='instadraw'>Instadraw </a>
+            <a href="/welcome/logout">Logout</a>
+            <form action="/instadraw/search" id='search_box' method="post">
+                {% csrf_token %}
+                <input type="text" name="search" class="form-control mr-sm-2" placeholder="Search">
+            </form>
+            <a href="/instadraw/create_post"><button class="btn btn-outline-light">Create post</button></a>
+            <a href="" class="navbar-brand">Hello, {{request.session.user_name}} </a>
+    </nav>
+    <div id="create_post_wrapper">
+        <div class="create_post">
             <canvas id="can" style="border:2px solid;" name='canvas' width="600" height="400"></canvas>
             <form action="/instadraw/create_post/save" name="save" method="post" >
                 {%csrf_token%}
                 <input type="hidden" alt="Submit" id="image" name="image">
-                <textarea name="description" id="description" cols="70" rows="15" placeholder="Optional"></textarea>
+                <textarea name="description" id="description" cols="70" rows="15" placeholder="Optional" class="form-control"></textarea>
             </form>
         </div>
-        <div class="menu">
-                <h6>Choose Color</h6>
-                <div class="colorsMenu">
-                    <div class='color' style="background:green;" id="green" onclick="color(this)"></div>
-                    <div class='color' style="background:blue;" id="blue" onclick="color(this)"></div>
-                    <div class='color' style="background:red;" id="red" onclick="color(this)"></div>
-                    <div class='color' style="background:yellow;" id="yellow" onclick="color(this)"></div>
-                    <div class='color' style="background:orange;" id="orange" onclick="color(this)"></div>
-                    <div class='color' style="background:black;" id="black" onclick="color(this)"></div>
-                    <div class='color' style="background:white;" id="white" onclick="color(this)"></div>
-                </div>
+        <div class="colorsMenu">
+            <div class="colors">
+                <h3>Choose Color</h3>
+                <div class='color' style="background:green;" id="green" onclick="color(this)"></div>
+                <div class='color' style="background:blue;" id="blue" onclick="color(this)"></div>
+                <div class='color' style="background:red;" id="red" onclick="color(this)"></div>
+                <div class='color' style="background:yellow;" id="yellow" onclick="color(this)"></div>
+                <div class='color' style="background:orange;" id="orange" onclick="color(this)"></div>
+                <div class='color' style="background:black;" id="black" onclick="color(this)"></div>
+                <div class='color' style="background:white;" id="white" onclick="color(this)"></div>
             </div>
-            <div>
-                <Button value="Clear" id="clr" onclick="erase()">Clear</Button> 
-                <button value="Save" class="save">Save</button> 
+        </div>
+            <div class="buttons">
+                <Button value="Clear" id="clr" onclick="erase()" class="btn btn-outline-info">Clear</Button> 
+                <button value="Save" class="save btn btn-outline-primary">Save</button> 
             </div>
             {% for message in messages %}
                 <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
             {% endfor %}
     </div>
 </body>
+<footer>
+        Instadraw© 
+</footer>
 </html>

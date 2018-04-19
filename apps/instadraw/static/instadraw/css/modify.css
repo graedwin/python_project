@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+#search_box{
+    width: 50%
+}
+#wrapper{
+    max-width: 1400px;
+    margin: auto;
+}
+#instadraw{
+    font-family: 'Pacifico', cursive;
+    font-size: 3em;
+}
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    font-family: 'Pacifico', cursive;
+}
+#create_post_wrapper{
+    max-width: 1400px;
+    margin: 5% auto;
+}
+.create_post{
+    text-align: center;
+    min-width: 650px;
+    display: inline-block;
+    vertical-align: top;
+}
+#description{
+    margin: 10px auto 10px auto;
+    height: 80px;
+}
+.colorsMenu{
+    display: inline-block;
+    min-width: 100px;
+}
+.color{
+    width: 90px;
+    height: 90px;
+    display: inline-block;
+    border:1px solid;
+}
+.colors{
+    max-width: 50%;
+    min-width: 10%;
+    text-align: center;
+    margin: 10px auto;
+}
+.buttons{
+    margin: 10px auto;
+}
