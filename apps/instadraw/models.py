@@ -23,7 +23,8 @@ class Post(models.Model):
 
 class CommentManager (models.Manager):
     def commentValidator (self, postData):
-        if postData['content']<1:
+        print '----> POSTDATA: ', postData
+        if len(postData['content'])<2:
             return (False, 'The comment must be at least two characters')
         else:
             newComment = self.create (

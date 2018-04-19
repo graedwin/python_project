@@ -34,11 +34,12 @@ def show (request, post_id):
         'post_id': post.id,
         'description': post.description,
         'pic': post.pic,
+        'posted_by': post.posted_by,
+        'created_at': post.created_at,
         'likes_total': post.liked_by.count(),
         'comments_total': post.comments.count(),
-        'comments': post.comments.all()
+        'comments': post.comments.all().order_by('-created_at')
     }
-
     return render (request, 'instadraw/show.html', context)
     
 def like(request, post_id):
@@ -49,7 +50,8 @@ def like(request, post_id):
     
     if user not in post.liked_by.all():
         post.liked_by.add(user)
-    print 'GOT ALL THE WAY HERE/////////'
+    else:
+        post.liked_by.remove(user)
     dictionary = {
         'response': post.liked_by.count()
     }
@@ -68,10 +70,13 @@ def add_comment (request, post_id):
     new_comment = Comment.objects.commentValidator (postData)
 
     if not new_comment[0]:
-        messages.error(new_comment)
+        messages.error(request, new_comment[1])
 
     return redirect ('/instadraw/show/'+str(post_id))
 
+def delete_comment (request, post_id, comment_id):
+    Comment.objects.get(id=comment_id).delete()
+    return redirect ('/instadraw/show/'+str(post_id))
 
 
 def search (request):
@@ -82,9 +87,4 @@ def search (request):
     return render (request, 'instadraw/search_results.html', { 'search_results': search_results} )
     
 
-
-#will only show up if session['user_id'] matches the post's uploaded_by
-def edit_description (request, post_id):
-    post = Post.objects.get(id=post_id['name'])
-    pass
     
