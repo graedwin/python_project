@@ -18,6 +18,7 @@
         <script src="{% static 'instadraw/js/popper.min.js' %}"></script>
         <script src="{% static 'instadraw/js/fontawesome-all.js' %}"></script>
         <script src="{% static 'instadraw/js/show.js' %}"></script>
+        <script src="{% static 'instadraw/js/script.js' %}"></script>
         <title>Show Post</title>
     </head>
     <body>
@@ -33,33 +34,36 @@
                             Hello, {{request.session.user_name}}
                         </a>                    
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="/instadraw/profile"><button class="dropdown-item" type="button">Profile</button></a>
+                            <a href="/instadraw/profile/{{request.session.user_id}}"><button class="dropdown-item" type="button">Profile</button></a>
                             <a href="/welcome/logout"><button class="dropdown-item" type="button">Logout</button></a>
                         </div>
                 </div>
             </nav>
-        <div id="wrapper">
+        <div id="wrapper" class='postContainer'>
             <div id="left-pane">
                 <div id="post">
                     <h1>Art</h1>
                     <hr>
                     <p class="font-weight-bold">Created by: {{ posted_by.first_name }} on {{ created_at }}</p>
                     <img src="{{ pic }}" alt="an image" class="img-fluid">
-                    <div id="lef-pane-misc">
+                    <div id="left-pane-misc">
                         <div class="optional">
                         {% if posted_by.id == request.session.user_id %}
-                            <p class="font-italic options"><a href="">Delete Post </a> <a href="" class="ml-3"> Edit description</a></p>
+                            <p class="font-italic options"><a class="ml-3 mr-3" href="/instadraw/delete_post/{{post_id}}">Delete Post </a> <a href="#" id="{{post.id}}" class="edit_description">Edit description</a> </p>
                         {% endif %}
                         </div>
                         <div id="icons">
                                 {% load static %}
-                                <a class ='likes' id={{post_id}}><span class="far fa-thumbs-up"></span> {{ likes_total }}</a>
+                                <a class ='likes' id={{post_id}}></span> {{ likes_total }}</a>
                                 <a>{{ comments_total }}</a>
-                                <p><span class="far fa-thumbs-up"></span></p>
                         </div>
                     </div>
                     <p>{{ description }}</p>
-                    
+                    <form action="/instadraw/edit_description/{{post_id}}" class="form{{post.id}}" style="display:none" method="post">
+                        {%csrf_token%}
+                        <textarea name="description" class="form-control mr-sm-2"></textarea>
+                        <input type="submit" value="Edit" class="btn btn-outline-primary">
+                    </form>
                 </div>
                 <div id="add_comment">
                     {% for message in messages %}
@@ -68,7 +72,7 @@
                     <form action="/instadraw/add_comment/{{ post_id }}" method="post" class="form-inline">
                         {% csrf_token %}
                         <textarea name="content" cols="50" rows="3" class="rounded"></textarea>
-                        <input type="submit" value="Comment" class="btn btn-primary m-2 d-block">
+                        <input type="submit" value="Comment" class="btn btn-outline-primary m-2 d-block">
                     </form>
                 </div>
             </div>
@@ -84,10 +88,10 @@
                                 <div class="optional ml-sm-3">
                                     {% if comment.commented_by.id == request.session.user_id %}
                                         <p class="options font-italic ml-5"><a class='mr-3' href="/instadraw/delete_comment/{{ post_id }}/{{ comment.id }}">Delete Comment </a> <a href="" id='{{ comment.id }}' class="edit_comment"> Edit comment</a></p>
-                                        <form action="instadraw/edit_comment/{{ post_id }}/{{ comment.id }}" class="form{{comment.id}}" style="display:none" method="post">
+                                        <form action="/instadraw/edit_comment/{{ post_id }}/{{ comment.id }}" class="form{{comment.id}} form-group" style="display:none" method="post">
                                             {%csrf_token%}
-                                            <textarea name="content" cols="30" rows="2"></textarea>
-                                            <input type="submit" value="Edit" class="btn btn-outline-primary">
+                                            <textarea name="content" cols="30" rows="2" class="rounded"></textarea>
+                                            <input type="submit" value="Edit" class="btn btn-outline-primary ">
                                         </form>
                                     {% endif %}
                                 </div>

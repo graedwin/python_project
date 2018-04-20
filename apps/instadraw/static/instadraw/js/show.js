@@ -15,8 +15,15 @@ $(document).ready(function () {
     });
 
     $('.edit_comment').on("click",function(){
-        $(".form"+$(this).attr('id')).show();
-        $("#"+$(this).attr('id')).hide();
+        $(".form"+$(this).attr('id')).toggle();
+        //$("#"+$(this).attr('id')).hide();
+
+        return false;
+    });
+    $('.edit_description').on("click",function(){
+        console.log('Here');
+        $(".form"+$(this).attr('id')).toggle();
+        //$("#"+$(this).attr('id')).hide();
 
         return false;
     });

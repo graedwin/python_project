@@ -22,17 +22,21 @@ class Post(models.Model):
         return self.description
 
 class CommentManager (models.Manager):
-    def commentValidator (self, postData):
-        print '----> POSTDATA: ', postData
+    def commentValidator (self, postData, comment_id=False):
         if len(postData['content'])<2:
             return (False, 'The comment must be at least two characters')
-        else:
+        if not comment_id:
             newComment = self.create (
                 content=postData['content'],
                 commented_by=postData['user'],
                 post=postData['post']
             )
             return (True, newComment)
+        else:
+            comment = Comment.objects.get(id=comment_id)
+            comment.content = postData['content'] 
+            comment.save()
+            return (True, )
 
 
 

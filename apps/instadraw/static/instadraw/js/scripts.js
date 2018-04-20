@@ -48,8 +48,8 @@ var canvas, ctx, flag = false,prevX = 0,currX = 0,prevY = 0,currY = 0,dot_flag =
                     case "cyan":
                         x = "cyan";
                         break;
-                    case "pruple":
-                        x = "pruple";
+                    case "purple":
+                        x = "purple";
                         break;
                     case "lime":
                         x = "lime";

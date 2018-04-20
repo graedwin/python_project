@@ -16,8 +16,7 @@ def logout(request):
 def new_post(request):
     return render(request,'instadraw/create_post.html')
 
-def profile(request):
-    id=request.session['user_id']
+def profile(request,id):
     context = {
         "posts" : User.objects.get(id=id).posts.all(),
         "user": User.objects.get(id=id)
@@ -84,6 +83,13 @@ def delete_comment (request, post_id, comment_id):
     Comment.objects.get(id=comment_id).delete()
     return redirect ('/instadraw/show/'+str(post_id))
 
+def edit_comment (request, post_id, comment_id):
+    result = Comment.objects.commentValidator(request.POST, comment_id)
+    if not result[0]:
+        for error in result[1]:
+            messages.error (request, error)
+        return redirect ('/welcome/edit_user_form')
+    return redirect ('/instadraw/show/'+str(post_id))
 
 def search (request):
     search_results = Post.objects.filter(description__contains=request.POST['search'])

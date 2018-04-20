@@ -30,7 +30,7 @@
                         Hello, {{request.session.user_name}}
                     </a>                    
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a href="/instadraw/profile"><button class="dropdown-item" type="button">Profile</button></a>
+                        <a href="/instadraw/profile/{{request.session.user_id}}"><button class="dropdown-item" type="button">Profile</button></a>
                         <a href="/welcome/logout"><button class="dropdown-item" type="button">Logout</button></a>
                     </div>
                     </div>

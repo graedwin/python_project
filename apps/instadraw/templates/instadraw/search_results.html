@@ -45,7 +45,7 @@
                             <div class="card" style="max-width: 220px; min-width: 250px; margin:10px;" id="post">
                                 <a href="/instadraw/show/{{post.id}}"><img src="{{post.pic}}" alt="an image" class="card-img-top" href="/instadraw/show/{{post.id}}"></a>
                                 <div class="card-body">
-                                    <a href="/instadraw/" class="card-title"><h5> {{post.posted_by.username}}</h5></a>
+                                    <a href="/instadraw/profile/{{post.posted_by.id}}" class="card-title"><h5> {{post.posted_by.username}}</h5></a>
                                        <p class="description{{post.id}} card-text"> {{ post.description }} </p>
                                     <form action="/instadraw/edit_description/{{post.id}}" class="form{{post.id}}" style="display:none" method="post">
                                         {%csrf_token%}
