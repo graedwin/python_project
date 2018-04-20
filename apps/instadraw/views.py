@@ -83,12 +83,19 @@ def delete_comment (request, post_id, comment_id):
     Comment.objects.get(id=comment_id).delete()
     return redirect ('/instadraw/show/'+str(post_id))
 
+def edit_comment (request, post_id, comment_id):
+    result = Comment.objects.commentValidator(request.POST, post_id)
+    if not result[0]:
+        for error in result[1]:
+            messages.error (request, error)
+        return redirect ('/welcome/edit_user_form')
+    return redirect ('/instadraw/show/'+str(post_id))
 
 def search (request):
     search_results = Post.objects.filter(description__contains=request.POST['search'])
     print search_results
 
-    return render (request, 'instadraw/search_results.html', { 'search_results': search_results} )
+    return render (request, 'instadraw/search_results.html', { 'posts': search_results} )
     
 #will only show up if session['user_id'] matches the post's uploaded_by
 def edit_description (request, post_id):
