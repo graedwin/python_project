@@ -15,6 +15,23 @@
 </head>
 
 <body>
+    <nav id="header" class="navbar navbar-dark bg-primary" style="margin-bottom:20px;">
+            <a href="/instadraw" class="navbar-brand" id='instadraw'>Instadraw </a>
+            <form action="/instadraw/search" id='search_box' method="post">
+                {% csrf_token %}
+                <input type="text" name="search" class="form-control mr-sm-2" placeholder="Search">
+            </form>
+            <a href="/instadraw/create_post"><button class="btn btn-outline-light">Create post</button></a>
+            <div class="btn-group">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Hello, {{request.session.user_name}}
+                    </a>                    
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="/instadraw/profile"><button class="dropdown-item" type="button">Profile</button></a>
+                        <a href="/welcome/logout"><button class="dropdown-item" type="button">Logout</button></a>
+                    </div>
+            </div>
+        </nav>
     <div id="wrapper">
         <h1>Please Update your information:</h1>
         {% if messages %}
@@ -24,35 +41,34 @@
             {% endfor %}
         </ul>
         {% endif %}
-        <nav id="header" class="navbar navbar-dark bg-primary" style="margin-bottom:20px;">
-            <form action="/welcome/edit_user" method="post">
-                {% csrf_token %}
-                <p>
-                    <label for="first_name">First Name</label>
-                    <input type="text" name="first_name" class="form-control" value="{{ user.first_name }}">
-                </p>
-                <p>
-                    <label for="last_name">Last Name</label>
-                    <input type="text" name="last_name" class="form-control" value="{{ user.last_name }}">
-                </p>
-                <p>
-                    <label for="email">Email</label>
-                    <input type="text" name="email" class="form-control" value="{{ user.email }}">
-                </p>
-                <p>
-                    <label for="username">Artistic Alias</label>
-                    <input type="text" name="username" class="form-control" value="{{ user.username }}">
-                </p>
-                <p>
-                    <label for="password">New Password</label>
-                    <input type="password" name="password" class="form-control">
-                </p>
-                <p>
-                    <label for="c_password">Confirm New Password</label>
-                    <input type="password" name="c_password" class="form-control">
-                </p>
-                <input type="submit" value="Save Changes" class="btn btn-primary">
-            </form>
+        <form action="/welcome/edit_user" method="post">
+            {% csrf_token %}
+            <p>
+                <label for="first_name">First Name</label>
+                <input type="text" name="first_name" class="form-control" value="{{ user.first_name }}">
+            </p>
+            <p>
+                <label for="last_name">Last Name</label>
+                <input type="text" name="last_name" class="form-control" value="{{ user.last_name }}">
+            </p>
+            <p>
+                <label for="email">Email</label>
+                <input type="text" name="email" class="form-control" value="{{ user.email }}">
+            </p>
+            <p>
+                <label for="username">Artistic Alias</label>
+                <input type="text" name="username" class="form-control" value="{{ user.username }}">
+            </p>
+            <p>
+                <label for="password">New Password</label>
+                <input type="password" name="password" class="form-control">
+            </p>
+            <p>
+                <label for="c_password">Confirm New Password</label>
+                <input type="password" name="c_password" class="form-control">
+            </p>
+            <input type="submit" value="Save Changes" class="btn btn-primary">
+        </form>
     </div>
 </body>
 <footer>
