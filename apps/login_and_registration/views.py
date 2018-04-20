@@ -13,7 +13,7 @@ def index(request):
 
 def register(request):
     print request.POST
-    result = User.objects.validate_reg(request.POST, 'register') # (False, [' ', ' '])
+    result = User.objects.validate_reg(request.POST) # (False, [' ', ' '])
     if result[0]:
         # True and we have a new user
         request.session['user_id'] = result[1].id
