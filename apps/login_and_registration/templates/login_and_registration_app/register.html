@@ -18,13 +18,6 @@
     <script type="text/javascript" src="{%static 'login_and_registration_app/js/popper.min.js'%}"></script> 
 </head>
 <body>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
 <section>
             <h1>Registration</h1>
             <form action="/welcome/register" method="post" class="px-4 py-3">
@@ -69,6 +62,15 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/welcome/existingUser">Do you already have an account? Login</a>
             </form>
+            {% if messages %}
+            <div class="alert alert-danger">
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+            </div>
     </section>
 </body>
 </html>

@@ -10,7 +10,7 @@ EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 # Create your models here.
 class UserManager(models.Manager):
-    def validate_reg(self, postData):
+    def validate_reg(self, postData, user_id=False):
         errors = []
         first = postData['first_name']
         last = postData['last_name']
@@ -50,29 +50,43 @@ class UserManager(models.Manager):
             # show errors to user
             return (False, errors)
         else:
-            # first see if that email exists in users table
-            result = self.filter(email=email)
-            if len(result) > 0:
-                # email exists
-                errors.append('Email already exists')
-                return (False, errors)
+            if not user_id:
+                # first see if that email exists in users table
+                result = self.filter(email=email)
+                if len(result) > 0:
+                    # email exists
+                    errors.append('Email already exists')
+                    return (False, errors)
+                else:
+                    # email doesn't exist and we can save
+                    new_user = self.create(
+                        first_name = first,
+                        last_name = last,
+                        username = username,
+                        email = email,
+                        password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+                    )
+                    return (True, new_user)
             else:
-                # email doesn't exist and we can save
-                new_user = self.create(
-                    first_name = first,
-                    last_name = last,
-                    username = username,
-                    email = email,
-                    password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-                )
-                return (True, new_user)
-    
+                user = User.objects.get(id=user_id)
+
+                user.first_name = first
+                user.last_name = last
+                user.email = email
+                user.username = username
+                user.password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+
+                user.save()
+
+                return (True, )
+        
+
     def validate_log(self, postData):
         errors = []
         password = postData['password']
         email = postData['email']
         if len(password) is 0:
-            errors.append('password is required')
+            errors.append('Password is required')
         if len(email) is 0:
             errors.append('Email is required')
         elif not EMAIL_REGEX.match(email):
@@ -102,7 +116,6 @@ class UserManager(models.Manager):
 class User(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    username = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
     password = models.CharField(max_length=255)
     username=models.CharField(max_length=255,null=True)

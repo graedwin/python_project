@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^search$', views.search),
     url(r'^delete_post/(?P<post_id>\d+)$', views.delete_post),
     url(r'^edit_description/(?P<post_id>\d+)$', views.edit_description),
+    url(r'^profile$', views.search),
     url(r'^delete_comment/(?P<post_id>\d+)/(?P<comment_id>\d+)$', views.delete_comment),
 ]

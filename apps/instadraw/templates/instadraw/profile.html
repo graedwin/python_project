@@ -4,22 +4,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"> {%load static%}
-    <link rel="stylesheet" href="{%static 'login_and_registration_app/skeleton.css'%}">
-    <link rel="stylesheet" href="{%static 'instadraw/styles.css'%}">
-    <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
-    <script type="text/javascript" src="{%static 'instadraw/scripts.js'%}"></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {%load static%}
+    <link rel="icon" href="{%static 'instadraw/Instadraw-logo.png'%}">
+    <link rel="stylesheet" href="{%static 'instadraw/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'instadraw/css/bootstrap-reboot.css'%}">
+    <link rel="stylesheet" href="{%static 'instadraw/css/modify.css'%}">
+    <script type="text/javascript" src="{%static 'instadraw/js/jquery.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'instadraw/js/scripts.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'instadraw/js/bootstrap.min.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'instadraw/js/holder.min.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'instadraw/js/popper.min.js'%}"></script> 
     <title>Profile</title>
 </head>
 
 <body>
-    <a href="/instadraw/edit">Edit Profile</a>
-    {{user}} {%for post in my_post%}
-    <div class="postContainer">
-        <img src="{{post.pic}}" alt="Post" class="imagePost">
-        <p>{{post.description}}</p>
-    </div> {%endfor%}
-    <a href="/instadraw/create_post">Go back</a>
-</body>
+    <nav id="header" class="navbar navbar-dark bg-primary" style="margin-bottom:20px;">
+            <a href="/instadraw" class="navbar-brand" id='instadraw'>Instadraw </a>
+            <form action="/instadraw/search" id='search_box' method="post">
+                {% csrf_token %}
+                <input type="text" name="search" class="form-control mr-sm-2" placeholder="Search">
+            </form>
+            <a href="/instadraw/create_post"><button class="btn btn-outline-light">Create post</button></a>
+            <div class="btn-group">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Hello, {{request.session.user_name}}
+                    </a>                    
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="/instadraw/profile"><button class="dropdown-item" type="button">Profile</button></a>
+                        <a href="/welcome/profile/edit_user_form"><button class="dropdown-item" type="button">Edit profile</button></a>
+                        <a href="/welcome/logout"><button class="dropdown-item" type="button">Logout</button></a>
+                    </div>
+            </div>
+        </nav>
+        <div id="wrapper" class="postContainer">
 
+            <h1 class="name">{{user.first_name}} {{user.last_name}}</h1>
+            <h5>Username: {{user.username}}</h3>
+            <h5>Email: {{user.email}}</h5>
+            <hr>
+    <div id="all_posts" class="card-deck" >
+            {% if posts %}
+            {{posts.created_by}}
+                {% for post in posts %}
+                    <div class="card" style="max-width: 220px; min-width: 250px; margin:10px;" id="post">
+                        <a href="/instadraw/show/{{post.id}}"><img src="{{post.pic}}" alt="an image" class="card-img-top" href="/instadraw/show/{{post.id}}"></a>
+                        <div class="card-body">
+                            <a href="/instadraw/" class="card-title"><h5> {{post.posted_by.username}}</h5></a>
+                               <p class="description{{post.id}} card-text"> {{ post.description }} </p>
+                            <form action="/instadraw/edit_description/{{post.id}}" class="form{{post.id}}" style="display:none" method="post">
+                                {%csrf_token%}
+                                <textarea name="description"></textarea>
+                                <input type="submit" value="Edit">
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                        {%if post.posted_by.id == request.session.user_id%}
+                                <a href="/instadraw/delete_post/{{post.id}}">Delete post</a>
+                                <a href="" id="{{post.id}}" class="edit_description">Edit description</a>
+                                {%else%}
+                                    <a href="/instadraw/show/{{post.id}">View</a>
+                            {%endif%}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        </div>
+</body>
+<footer>
+    Instadraw© 
+</footer>
 </html>

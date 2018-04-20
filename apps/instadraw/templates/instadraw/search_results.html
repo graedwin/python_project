@@ -31,13 +31,16 @@
                             Hello, {{request.session.user_name}}
                         </a>                    
                         <div class="dropdown-menu dropdown-menu-right">
+                            <a href="/instadraw/profile"><button class="dropdown-item" type="button">Profile</button></a>
+                            <a href="/welcome/profile/edit_user_form"><button class="dropdown-item" type="button">Edit profile</button></a>
                             <a href="/welcome/logout"><button class="dropdown-item" type="button">Logout</button></a>
                         </div>
                 </div>
         </nav>
         <div id="wrapper" class="postContainer">
+            {% if posts %}
+            <h1 style="display:inline;">We found these results: </h1>
                 <div id="all_posts" class="card-deck" >
-                    {% if posts %}
                         {% for post in posts %}
                             <div class="card" style="max-width: 220px; min-width: 250px; margin:10px;" id="post">
                                 <a href="/instadraw/show/{{post.id}}"><img src="{{post.pic}}" alt="an image" class="card-img-top" href="/instadraw/show/{{post.id}}"></a>
