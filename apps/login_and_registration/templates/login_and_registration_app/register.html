@@ -6,8 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Register</title>
     {%load static%}
-    <link rel="stylesheet" href="{%static 'login_and_registration_app/skeleton.css'%}">
-    <link rel="stylesheet" href="{%static 'login_and_registration_app/styles.css'%}">
+    <link rel="icon" href="{%static 'login_and_registration_app/images/Instadraw-logo.png'%}">
+    <link rel="stylesheet" href="{%static 'login_and_registration_app/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'login_and_registration_app/css/bootstrap-reboot.css'%}">
+    <link rel="stylesheet" href="{%static 'login_and_registration_app/css/modify.css'%}">
+    <script type="text/javascript" src="{%static 'login_and_registration_app/js/jquery.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'login_and_registration_app/js/scripts.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'login_and_registration_app/js/bootstrap.min.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'login_and_registration_app/js/holder.min.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'login_and_registration_app/js/jquery-slim.min.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'login_and_registration_app/js/popper.min.js'%}"></script> 
 </head>
 <body>
     {% if messages %}
@@ -17,20 +25,50 @@
         {% endfor %}
     </ul>
     {% endif %}
-    <section class="loginSection">
+<section>
             <h1>Registration</h1>
-            <div>
-    <form action="/welcome/register" method="post">
-        {% csrf_token %}
-        <p>First Name<input type="text" name="first_name"></p>
-        <p>Last Name<input type="text" name="last_name"></p>
-        <p>Email<input type="text" name="email"></p>
-        <p>Password<input type="password" name="password"></p>
-        <p>Confirm<input type="password" name="c_password"></p>
-        <input type="submit" value="Register">
-    </form>
-    <p>Do you already have an account? <a href="/welcome/existingUser">Login</a></p>
-    </div>
+            <form action="/welcome/register" method="post" class="px-4 py-3">
+                {% csrf_token %}
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">&ensp;First Name&ensp;</span>
+                    </div>
+                    <input type="text" name=first_name class="form-control" placeholder="First Name" aria-label="Email">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">&ensp;Last Name&ensp;</span>
+                    </div>
+                    <input type="text" name=last_name class="form-control" placeholder="Last Name" aria-label="Email">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">&emsp; Email &emsp;</span>
+                    </div>
+                    <input type="text" name=email class="form-control" placeholder="example@example.com" aria-label="Email">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Artistic Alias</span>
+                    </div>
+                    <input type="text" name=username class="form-control" placeholder="Alias" aria-label="Email">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">&emsp;Password &ensp;</span>
+                    </div>
+                    <input type="password" name=password class="form-control" aria-label="Email">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">&emsp;Confirm&emsp;</span>
+                    </div>
+                    <input type="password" name=c_password class="form-control" placeholder="Password confirmation" aria-label="Email">
+                </div>
+                <input type="submit" value="Register" class="btn btn-primary">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/welcome/existingUser">Do you already have an account? Login</a>
+            </form>
     </section>
 </body>
 </html>

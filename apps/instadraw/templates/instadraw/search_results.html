@@ -5,36 +5,71 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         {% load static %}
-        <link rel="stylesheet" href="{% static 'instadraw/skeleton.css' %}">
-        <link rel="stylesheet" href="{% static 'instadraw/normalize.css' %}">
-        <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script> 
-        <script src="{% static 'instadraw/show.js' %}"></script>
         <title>Show Post</title>
+        <link rel="icon" href="{%static 'instadraw/Instadraw-logo.png'%}">
+        <link rel="stylesheet" href="{%static 'instadraw/css/bootstrap.min.css'%}">
+        <link rel="stylesheet" href="{%static 'instadraw/css/bootstrap-reboot.css'%}">
+        <link rel="stylesheet" href="{%static 'instadraw/css/modify.css'%}">
+        <script src="{%static 'instadraw/js/jquery.js'%}"></script> 
+        <script src="{%static 'instadraw/js/scripts.js'%}"></script> 
+        <script src="{%static 'instadraw/js/bootstrap.min.js'%}"></script> 
+        <script src="{%static 'instadraw/js/holder.min.js'%}"></script> 
+        <script src="{%static 'instadraw/js/jquery-slim.min.js'%}"></script> 
+        <script src="{%static 'instadraw/js/popper.min.js'%}"></script> 
+        <script src="{% static 'instadraw/js/show.js' %}"></script>
     </head>
     <body>
-        <div id="wrapper">
-            <div id="header">
-                {{request.session.user_name}} 
+        <nav id="header" class="navbar navbar-dark bg-primary" style="margin-bottom:20px;">
+                <a href="/instadraw" class="navbar-brand" id='instadraw'>Instadraw </a>
                 <form action="/instadraw/search" id='search_box' method="post">
                     {% csrf_token %}
-                    <input type="text" name="search">
+                    <input type="text" name="search" class="form-control mr-sm-2" placeholder="Search">
                 </form>
-                <a href="/instadraw">Home </a> | <a href="/welcome/logout">Logout</a>
-            </div>
-            <div id="all_posts">
-            <!-- {% if search_results %} -->
-                {% for result in search_results %}
-                <div class="post">
-                    <a href="/instadraw/show/{{result.id}}">
-                        <img src="{{result.pic}}" alt="an image">
-                        <p> {{ result.description }} </p>
-                    </a>
+                <a href="/instadraw/create_post"><button class="btn btn-outline-light">Create post</button></a>
+                <div class="btn-group">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Hello, {{request.session.user_name}}
+                        </a>                    
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="/instadraw/profile"><button class="dropdown-item" type="button">Profile</button></a>
+                            <a href="/welcome/logout"><button class="dropdown-item" type="button">Logout</button></a>
+                        </div>
                 </div>
-                {% endfor %}
-            <!-- {% else %} -->
-                <h1>NO RESULTS FOUND!!!!!!!!</h1>
-            <!-- {% endif %} -->
+        </nav>
+        <div id="wrapper" class="postContainer">
+                <div id="all_posts" class="card-deck" >
+                    {% if posts %}
+                        {% for post in posts %}
+                            <div class="card" style="max-width: 220px; min-width: 250px; margin:10px;" id="post">
+                                <a href="/instadraw/show/{{post.id}}"><img src="{{post.pic}}" alt="an image" class="card-img-top" href="/instadraw/show/{{post.id}}"></a>
+                                <div class="card-body">
+                                    <a href="/instadraw/" class="card-title"><h5> {{post.posted_by.username}}</h5></a>
+                                       <p class="description{{post.id}} card-text"> {{ post.description }} </p>
+                                    <form action="/instadraw/edit_description/{{post.id}}" class="form{{post.id}}" style="display:none" method="post">
+                                        {%csrf_token%}
+                                        <textarea name="description"></textarea>
+                                        <input type="submit" value="Edit">
+                                    </form>
+                                </div>
+                                <div class="card-footer">
+                                {%if post.posted_by.id == request.session.user_id%}
+                                        <a href="/instadraw/delete_post/{{post.id}}">Delete post</a> |
+                                        <a href="" id="{{post.id}}" class="edit_description">Edit description</a>
+                                        {%else%}
+                                            <a href="/instadraw/show/{{post.id}}">View</a>
+                                    {%endif%}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% else %}
+                        <h1>NO RESULTS FOUND!!!!!!!!</h1>
+                    {% endif %}
+                </div>
+            </div>
             </div>
         </div>
     </body>
+    <footer>
+            Instadraw© 
+    </footer>
 </html>

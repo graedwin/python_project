@@ -4,12 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"> {%load static%}
-    <link rel="stylesheet" href="{%static 'login_and_registration_app/skeleton.css'%}">
-    <link rel="stylesheet" href="{%static 'login_and_registration_app/styles.css'%}">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+    {%load static%}
+    <link rel="icon" href="{%static 'login_and_registration_app/images/Instadraw-logo.png'%}">
+    <link rel="stylesheet" href="{%static 'login_and_registration_app/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'login_and_registration_app/css/bootstrap-reboot.css'%}">
+    <link rel="stylesheet" href="{%static 'login_and_registration_app/css/modify.css'%}">
+    <script type="text/javascript" src="{%static 'login_and_registration_app/js/jquery.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'login_and_registration_app/js/scripts.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'login_and_registration_app/js/bootstrap.min.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'login_and_registration_app/js/holder.min.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'login_and_registration_app/js/jquery-slim.min.js'%}"></script> 
+    <script type="text/javascript" src="{%static 'login_and_registration_app/js/popper.min.js'%}"></script> 
     <title>Login</title>
 </head>
-
 <body>
     {% if messages %}
     <ul class="messages">
@@ -18,6 +26,7 @@
             {% endfor %}
     </ul>
     {% endif %}
+<<<<<<< HEAD
 
     <form action="/welcome/register" method="post">
         {% csrf_token %}
@@ -52,6 +61,31 @@
         </p>
         <input type="submit" value="Login">
     </form>
+=======
+    <section class="loginSection">
+            <h1>Login</h1>
+            <form action="/welcome/login" method="post" class="px-4 py-3">
+                {% csrf_token %}
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">&emsp;Email &ensp;</span>
+                    </div>
+                    <input type="text" name=email class="form-control" placeholder="example@example.com" aria-label="Email">
+                </div>
+                <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Password</span>
+                        </div>
+                        <input type="password" name=password class="form-control" aria-label="Email">
+                    </div>
+                <input type="submit" value="Login" class="btn btn-primary">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/welcome/newUser">New around here? Sign up</a>
+            </form>
+    </section>
+>>>>>>> changes
 </body>
-
+<footer>
+        Instadraw© 
+</footer>
 </html>

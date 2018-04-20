@@ -5,54 +5,99 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         {% load static %}
-        <link rel="stylesheet" href="{% static 'instadraw/skeleton.css' %}">
-        <link rel="stylesheet" href="{% static 'instadraw/normalize.css' %}">
-        <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script> 
-        <script src="{% static 'instadraw/show.js' %}"></script>
+        <link rel="icon" href="{%static 'instadraw/Instadraw-logo.png'%}">
+        <link rel="stylesheet" href="{%static 'instadraw/css/bootstrap.min.css'%}">
+        <link rel="stylesheet" href="{%static 'instadraw/css/bootstrap-reboot.css'%}">
+        <link rel="stylesheet" href="{%static 'instadraw/css/modify.css'%}">
+        <link rel="stylesheet" href="{%static 'instadraw/css/show.css'%}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+        <!-- <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="{% static 'instadraw/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'instadraw/js/holder.min.js' %}"></script>
+        <script src="{% static 'instadraw/js/popper.min.js' %}"></script>
+        <script src="{% static 'instadraw/js/fontawesome-all.js' %}"></script>
+        <script src="{% static 'instadraw/js/show.js' %}"></script>
         <title>Show Post</title>
     </head>
     <body>
-        <div id="wrapper">
-            <div id="header">
-                    {{request.session.user_name}} 
-                    <form action="/instadraw/search" id='search_box' method="post">
-                        {% csrf_token %}
-                        <input type="text" name="search">
-                    </form>
-                    <a href="/instadraw">Home </a> | <a href="/welcome/logout">Logout</a>
-            </div>
-            <div id="post">
-                <img src="{{ pic }}" alt="an image">
-                <p>{{ description }}</p>
-
-                <a class ='likes' id={{post_id}}>{{ likes_total }}</a>
-                {% if comments %}
-                    <a href="">Comments: {{ comments_total }}</a>
-                {% endif %}
-            </div>
-            <form action="'/instadraw/like/{{post_id}}" style="display: none" name="likes" method='post'>
-                <input type="hidden" name='postid' value="{{post_id}}">
-            </form>
-            <div id="add_comment">
-                {% for message in messages %}
-                    <p>message</p>
-                {% endfor %}
-                <form action="/instadraw/add_comment/{{ post_id }}" method="post">
+        <nav id="header" class="navbar navbar-dark bg-primary" style="margin-bottom:20px;">
+                <a href="/instadraw" class="navbar-brand" id='instadraw'>Instadraw </a>
+                <form action="/instadraw/search" id='search_box' method="post">
                     {% csrf_token %}
-                    <textarea name="content" cols="50" rows="3"></textarea>
-                    <input type="submit" value="Comment">
+                    <input type="text" name="search" class="form-control mr-sm-2" placeholder="Search">
                 </form>
+                <a href="/instadraw/create_post"><button class="btn btn-outline-light">Create post</button></a>
+                <div class="btn-group">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Hello, {{request.session.user_name}}
+                        </a>                    
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="/instadraw/profile"><button class="dropdown-item" type="button">Profile</button></a>
+                            <a href="/welcome/logout"><button class="dropdown-item" type="button">Logout</button></a>
+                        </div>
+                </div>
+            </nav>
+        <div id="wrapper">
+            <div id="left-pane">
+                <div id="post">
+                    <h1>Art</h1>
+                    <hr>
+                    <p class="font-weight-bold">Created by: {{ posted_by.first_name }} on {{ created_at }}</p>
+                    <img src="{{ pic }}" alt="an image" class="img-fluid">
+                    <div id="lef-pane-misc">
+                        <div class="optional">
+                        {% if posted_by.id == request.session.user_id %}
+                            <p class="font-italic options"><a href="">Delete Post </a> <a href="" class="ml-3"> Edit description</a></p>
+                        {% endif %}
+                        </div>
+                        <div id="icons">
+                                {% load static %}
+                                <a class ='likes' id={{post_id}}><span class="far fa-thumbs-up"></span> {{ likes_total }}</a>
+                                <a>{{ comments_total }}</a>
+                                <p><span class="far fa-thumbs-up"></span></p>
+                        </div>
+                    </div>
+                    <p>{{ description }}</p>
+                    
+                </div>
+                <div id="add_comment">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                    <form action="/instadraw/add_comment/{{ post_id }}" method="post" class="form-inline">
+                        {% csrf_token %}
+                        <textarea name="content" cols="50" rows="3" class="rounded"></textarea>
+                        <input type="submit" value="Comment" class="btn btn-primary m-2 d-block">
+                    </form>
+                </div>
             </div>
             <div id="comments">
                 {% if comments %}
+                    <h1>Comments</h1>
+                    <hr>
                     {% for comment in comments %}
                         <div id="comment">
-                            <p><span> {{ comment.commented_by.first_name }}</span> {{ comment.created_at }}</p>
                             <p>{{ comment.content }}</p>
+                            <div id="comment-footer">
+                                <p id='comment-text' class="font-italic ml-4" style="font-size: 14px;">By: {{ comment.commented_by.first_name }} on {{ comment.created_at }}</p>
+                                <div class="optional ml-sm-3">
+                                    {% if comment.commented_by.id == request.session.user_id %}
+                                        <p class="options font-italic ml-5"><a class='mr-3' href="/instadraw/delete_comment/{{ post_id }}/{{ comment.id }}">Delete Comment </a> <a href="" id='{{ comment.id }}' class="edit_comment"> Edit comment</a></p>
+                                        <form action="instadraw/edit_comment/{{ post_id }}/{{ comment.id }}" class="form{{comment.id}}" style="display:none" method="post">
+                                            {%csrf_token%}
+                                            <textarea name="content" cols="30" rows="2"></textarea>
+                                            <input type="submit" value="Edit" class="btn btn-outline-primary">
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
                     {% endfor %}
                 {% endif %}
             </div>
-        </div>
     </body>
+    <footer>
+            Instadraw© 
+    </footer>
 </html>
