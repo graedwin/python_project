@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+
+section{
+    max-width: 32%;
+    margin: 5% auto;
+    text-align: center;
+}
+
+section > form > div{
+    margin: 30px 0px;
+}
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    font-family: 'Pacifico', cursive;
+}

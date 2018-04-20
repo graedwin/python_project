@@ -14,5 +14,4 @@ $(document).ready(function () {
         //$(this).text(likes_amount+1);
         return false;
     });
-
 });

@@ -25,7 +25,12 @@ def profile(request):
     return render(request,'instadraw/profile.html',context)
    
 def save(request):
-    Post.objects.create(pic=request.POST['image'],posted_by=User.objects.get(id=request.session['user_id']),description=request.POST['description'])
+    error=Post.objects.validate_canvas(request.POST['image'])
+    if (error[0]):
+        Post.objects.create(pic=request.POST['image'],posted_by=User.objects.get(id=request.session['user_id']),description=request.POST['description'])
+    else:
+        messages.error(request, error[1])
+        return redirect('/instadraw/create_post')
     return redirect('/instadraw')
 
 def show (request, post_id):
@@ -84,7 +89,7 @@ def search (request):
     print search_results
     # for index in len(search_results):
     #     print search_results[index]['description']
-    return render (request, 'instadraw/search_results.html', { 'search_results': search_results} )
+    return render (request, 'instadraw/search_results.html', { 'posts': search_results} )
     
 
 

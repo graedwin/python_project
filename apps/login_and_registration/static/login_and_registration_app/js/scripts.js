@@ -36,24 +36,6 @@ var canvas, ctx, flag = false,prevX = 0,currX = 0,prevY = 0,currY = 0,dot_flag =
                     case "white":
                         x = "white";
                         break;
-                    case "pink":
-                        x = "pink";
-                        break;
-                    case "brown":
-                        x = "brown";
-                        break;
-                    case "gray":
-                        x = "gray";
-                        break;
-                    case "cyan":
-                        x = "cyan";
-                        break;
-                    case "pruple":
-                        x = "pruple";
-                        break;
-                    case "lime":
-                        x = "lime";
-                        break;
                 }
                 if (x == "white") y = 14;
                 else y = 2;
