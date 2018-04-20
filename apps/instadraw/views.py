@@ -19,8 +19,7 @@ def new_post(request):
 def profile(request):
     id=request.session['user_id']
     context = {
-        "my_post" : User.objects.get(id=id).posts.all(),
-        "user" : User.objects.get(id=id).username,
+        "posts" : User.objects.get(id=id).posts.all(),
     }
     return render(request,'instadraw/profile.html',context)
    
@@ -40,6 +39,7 @@ def show (request, post_id):
         'comments_total': post.comments.count(),
         'comments': post.comments.all().order_by('-created_at')
     }
+
     return render (request, 'instadraw/show.html', context)
     
 def like(request, post_id):
@@ -82,18 +82,16 @@ def delete_comment (request, post_id, comment_id):
 def search (request):
     search_results = Post.objects.filter(description__contains=request.POST['search'])
     print search_results
-    # for index in len(search_results):
-    #     print search_results[index]['description']
+
     return render (request, 'instadraw/search_results.html', { 'search_results': search_results} )
     
-
-
 #will only show up if session['user_id'] matches the post's uploaded_by
 def edit_description (request, post_id):
     post = Post.objects.get(id=post_id)
     post.description=request.POST['description']
     post.save() 
     return redirect('/instadraw')
+
 def delete_post (request, post_id):
     Post.objects.get(id=post_id).delete()
     return redirect('/instadraw')

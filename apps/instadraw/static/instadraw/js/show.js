@@ -1,17 +1,23 @@
 $(document).ready(function () {
     $('.likes').on ('click', function () {
-
-        $.ajax ({
+        console.log ('----> IT DETECTS THE CLICK');
+        $.ajax({
             type: 'GET',
             url: '/instadraw/like/'+$(this).attr('id'),
             data: {},
             success: function (result) {
-                console.log ('answer', result['answer']);
+                console.log ('response', result['response']);
                 $('.likes').text(result['response']);
             }
-        })
-        //document.forms["likes"].submit();
-        //$(this).text(likes_amount+1);
+        });
+
+        return false;
+    });
+
+    $('.edit_comment').on("click",function(){
+        $(".form"+$(this).attr('id')).show();
+        $("#"+$(this).attr('id')).hide();
+
         return false;
     });
 
