@@ -10,8 +10,13 @@ $(document).ready(function () {
                 $('.likes').text(result['response']);
             }
         })
-        //document.forms["likes"].submit();
-        //$(this).text(likes_amount+1);
+        $('#edit_comment').on("click",function(){
+            console.log('Here');
+            $("#description"+$(this).attr('id')).hide();
+            $(".form"+$(this).attr('id')).show();
+            $("#"+$(this).attr('id')).hide();
+            return false;
+        })
         return false;
     });
 });

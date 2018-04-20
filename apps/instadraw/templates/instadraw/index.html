@@ -14,7 +14,6 @@
         <script type="text/javascript" src="{%static 'instadraw/js/scripts.js'%}"></script> 
         <script type="text/javascript" src="{%static 'instadraw/js/bootstrap.min.js'%}"></script> 
         <script type="text/javascript" src="{%static 'instadraw/js/holder.min.js'%}"></script> 
-        <script type="text/javascript" src="{%static 'instadraw/js/jquery-slim.min.js'%}"></script> 
         <script type="text/javascript" src="{%static 'instadraw/js/popper.min.js'%}"></script> 
 </head>
 <body>
@@ -30,6 +29,7 @@
                     Hello, {{request.session.user_name}}
                 </a>                    
                 <div class="dropdown-menu dropdown-menu-right">
+                    <a href="/instadraw/profile"><button class="dropdown-item" type="button">Profile</button></a>
                     <a href="/welcome/logout"><button class="dropdown-item" type="button">Logout</button></a>
                 </div>
         </div>
