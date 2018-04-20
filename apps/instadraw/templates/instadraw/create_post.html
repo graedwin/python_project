@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{%static 'instadraw/css/bootstrap.min.css'%}">
     <link rel="stylesheet" href="{%static 'instadraw/css/bootstrap-reboot.css'%}">
     <link rel="stylesheet" href="{%static 'instadraw/css/modify.css'%}">
-    <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script> 
+    <script type="text/javascript" src="{%static 'instadraw/js/jquery.js'%}"></script> 
     <script type="text/javascript" src="{%static 'instadraw/js/scripts.js'%}"></script> 
     <script type="text/javascript" src="{%static 'instadraw/js/bootstrap.min.js'%}"></script> 
     <script type="text/javascript" src="{%static 'instadraw/js/holder.min.js'%}"></script> 
@@ -20,13 +20,19 @@
 <body onload="init()">
     <nav id="header" class="navbar navbar-dark bg-primary" style="margin-bottom:20px;">
             <a href="/instadraw" class="navbar-brand" id='instadraw'>Instadraw </a>
-            <a href="/welcome/logout">Logout</a>
             <form action="/instadraw/search" id='search_box' method="post">
                 {% csrf_token %}
                 <input type="text" name="search" class="form-control mr-sm-2" placeholder="Search">
             </form>
             <a href="/instadraw/create_post"><button class="btn btn-outline-light">Create post</button></a>
-            <a href="" class="navbar-brand">Hello, {{request.session.user_name}} </a>
+            <div class="btn-group">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Hello, {{request.session.user_name}}
+                    </a>                    
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="/welcome/logout"><button class="dropdown-item" type="button">Logout</button></a>
+                    </div>
+                    </div>
     </nav>
     <div id="create_post_wrapper">
         <div class="create_post">
@@ -46,7 +52,13 @@
                 <div class='color' style="background:yellow;" id="yellow" onclick="color(this)"></div>
                 <div class='color' style="background:orange;" id="orange" onclick="color(this)"></div>
                 <div class='color' style="background:black;" id="black" onclick="color(this)"></div>
+                <div class='color' style="background:pink " id="pink" onclick="color(this)"></div>
                 <div class='color' style="background:white;" id="white" onclick="color(this)"></div>
+                <div class='color' style="background:brown " id="brown" onclick="color(this)"></div>
+                <div class='color' style="background:gray " id="gray" onclick="color(this)"></div>
+                <div class='color' style="background:cyan " id="cyan" onclick="color(this)"></div>
+                <div class='color' style="background:purple " id="purple" onclick="color(this)"></div>
+                <div class='color' style="background:lime " id="lime" onclick="color(this)"></div>
             </div>
         </div>
             <div class="buttons">

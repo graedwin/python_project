@@ -36,7 +36,8 @@ footer {
 }
 .colorsMenu{
     display: inline-block;
-    min-width: 100px;
+    min-width: 10%;
+    max-width: 45%;
 }
 .color{
     width: 90px;
@@ -45,11 +46,21 @@ footer {
     border:1px solid;
 }
 .colors{
-    max-width: 50%;
+    max-width: 100%;
     min-width: 10%;
     text-align: center;
     margin: 10px auto;
 }
 .buttons{
     margin: 10px auto;
+}
+#card-footer{
+    text-align: center;
+}
+#navbarDropdown{
+    color: white;
+}
+
+div.color hr{
+    height: 2px;
 }

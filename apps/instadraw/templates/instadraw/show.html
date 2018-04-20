@@ -5,29 +5,37 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         {% load static %}
-        <link rel="stylesheet" href="{% static 'instadraw/css/bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static 'instadraw/css/bootstrap-reboot.min.css' %}">
-        <link rel="stylesheet" href="{% static 'instadraw/css/show.css' %}">
+        <link rel="icon" href="{%static 'instadraw/Instadraw-logo.png'%}">
+        <link rel="stylesheet" href="{%static 'instadraw/css/bootstrap.min.css'%}">
+        <link rel="stylesheet" href="{%static 'instadraw/css/bootstrap-reboot.css'%}">
         <link rel="stylesheet" href="{%static 'instadraw/css/modify.css'%}">
-        <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
-        <script src="{% static 'instadraw/bootstrap.min.js' %}"></script>
-        <script src="{% static 'instadraw/holder.min.js' %}"></script>
-        <script src="{% static 'instadraw/jquery-slim.min.js' %}"></script>
-        <script src="{% static 'instadraw/popper.min.js' %}"></script>
+        <link rel="stylesheet" href="{%static 'instadraw/css/show.css'%}">
+        <script type="text/javascript" src="{%static 'instadraw/js/jquery.js'%}"></script> 
+        <script type="text/javascript" src="{%static 'instadraw/js/scripts.js'%}"></script> 
+        <script type="text/javascript" src="{%static 'instadraw/js/bootstrap.min.js'%}"></script> 
+        <script type="text/javascript" src="{%static 'instadraw/js/holder.min.js'%}"></script> 
+        <script type="text/javascript" src="{%static 'instadraw/js/jquery-slim.min.js'%}"></script> 
+        <script type="text/javascript" src="{%static 'instadraw/js/popper.min.js'%}"></script> 
         <script src="{% static 'instadraw/js/show.js' %}"></script>
         <title>Show Post</title>
     </head>
     <body>
         <nav id="header" class="navbar navbar-dark bg-primary" style="margin-bottom:20px;">
-            <a href="/instadraw" class="navbar-brand" id='instadraw'>Instadraw </a>
-            <a href="/welcome/logout">Logout</a>
-            <form action="/instadraw/search" id='search_box' method="post">
-                {% csrf_token %}
-                <input type="text" name="search" class="form-control mr-sm-2" placeholder="Search">
-            </form>
-            <a href="/instadraw/create_post"><button class="btn btn-outline-light">Create post</button></a>
-            <a href="" class="navbar-brand">Hello, {{request.session.user_name}} </a>
-        </nav>
+                <a href="/instadraw" class="navbar-brand" id='instadraw'>Instadraw </a>
+                <form action="/instadraw/search" id='search_box' method="post">
+                    {% csrf_token %}
+                    <input type="text" name="search" class="form-control mr-sm-2" placeholder="Search">
+                </form>
+                <a href="/instadraw/create_post"><button class="btn btn-outline-light">Create post</button></a>
+                <div class="btn-group">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Hello, {{request.session.user_name}}
+                        </a>                    
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="/welcome/logout"><button class="dropdown-item" type="button">Logout</button></a>
+                        </div>
+                </div>
+            </nav>
         <div id="wrapper">
             <div id="left-pane">
                 <div id="post">
@@ -81,10 +89,7 @@
                 {% endif %}
             </div>
     </body>
-<<<<<<< HEAD
     <footer>
             Instadraw© 
     </footer>
-=======
->>>>>>> a4c64a5926bae04cbc1f6abb61509e3907ae9211
 </html>
